@@ -1,5 +1,9 @@
+import PopularMovies from "@/components/media/PopularMovies";
+
 export default function Home() {
   return (
-    <div>Home page</div>
+      <div>
+        <PopularMovies />
+      </div>
   );
 }
