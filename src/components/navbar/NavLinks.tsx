@@ -15,8 +15,8 @@ export default function NavLinks ({pathName}: NavLinksPorps) {
 
     const links: NavLink[] = [
         {title: "HOME", path: "/"},
-        {title: "MOVIES", path: "movies"},
-        {title: "TV SERIES", path: "tvs"}
+        {title: "MOVIES", path: "/movies"},
+        {title: "TV SERIES", path: "/tvs"}
     ]
 
     const [showNavMobile, setShowNavMobile] = useState<boolean>(false)
@@ -30,7 +30,7 @@ export default function NavLinks ({pathName}: NavLinksPorps) {
             return (
                 <Link 
                     className={`font-medium text-xl cursor-pointer hover:text-red-500
-                         ${(pathName === `/${link.path}` || (pathName === '/' && link.path === '/')) ? 'underline decoration-red-500' : ''}`}
+                         ${pathName === `${link.path}` ? 'underline decoration-red-500' : ''}`}
                     href={link.path}
                     key={key}>
                     {link.title}
