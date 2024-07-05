@@ -6,7 +6,9 @@ import Carousel from "../shared/Carousel";
 
 const getPopularMovies = async () => {
     const res = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`,{
-        cache: "no-store"
+        next: {
+            revalidate: 86400 // 24 hours 
+        }
     });
     if (!res.ok) {
         throw new Error('Failed to fetch popular movies');
