@@ -5,7 +5,6 @@ import Image from "next/image"
 import { IMAGES_URL } from "@/api/apiConfig";
 
 type MediaOverviewProps = {
-    id: string;
     numberOfSeasons: number;
     numberOfEpisodes: number;
     overview: string;

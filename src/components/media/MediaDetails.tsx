@@ -3,9 +3,12 @@ import ErrorCard from "../shared/ErrorCard";
 import Image from "next/image"
 import { Movie } from "@/types/types";
 import MediaOverview from "./MediaOverview";
+import MediaVideos from "./MediaVideos";
+import { Suspense } from "react";
+import LoadingSpinner from "../shared/LoadingSpinner";
 
 type MediaDetailsProps = {
-    mediaId: string
+    mediaId: string;
 }
 
 const getMedia = async (url: string) => {
@@ -42,7 +45,7 @@ export default async function MediaDetails({mediaId}: MediaDetailsProps) {
 
 
     return (
-             <div className="h-screen relative">
+        <div className="h-screen relative">
                 <Image 
                     src={`${IMAGES_URL}${media.backdrop_path}`} 
                     alt="Media backdrop image"
@@ -89,7 +92,11 @@ export default async function MediaDetails({mediaId}: MediaDetailsProps) {
                     </div>
                 </div>
             </div>
-                            {/* <VideoPlayer mediaId={id.toString()} /> */}
+            <div className="py-80">
+                <Suspense fallback={<div className="relative top-11"><LoadingSpinner /></div>}>          
+                        <MediaVideos mediaId={media.id}  />
+                </Suspense>
+            </div>
         </div>
     )
 }
