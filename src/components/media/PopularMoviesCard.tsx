@@ -30,7 +30,7 @@ export default function PopularMoviesCard ({data}: PopularMoviesCardProps) {
                             <p className='mt-10 text-sm lg:text-md font-semibold mb-5'>
                                 {overview}
                             </p>
-                            <Link href={`movie/${id}`}>
+                            <Link href={`/movie/${id}`}>
                                 <Button title="Show details" />
                             </Link>
                         </div>
