@@ -5,7 +5,9 @@ import Carousel from "../shared/Carousel";
 
 
 const getPopularMovies = async () => {
-    const res = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
+    const res = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`,{
+        cache: "no-store"
+    });
     if (!res.ok) {
         throw new Error('Failed to fetch popular movies');
     }
@@ -26,12 +28,11 @@ export default async function PopularMovies () {
         } 
     }
 
+    if(error) return <div className="relative top-11"><ErrorCard /></div>
+
     return (
         <div>
-            {error ? <ErrorCard /> :
-                <Carousel data={popularMovies} />
-                // <p>data fetched</p>
-            }
+            <Carousel data={popularMovies} />
         </div>
     )
 }

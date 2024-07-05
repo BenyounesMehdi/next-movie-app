@@ -13,12 +13,12 @@ export default function PopularMoviesCard ({data}: PopularMoviesCardProps) {
     const {id, title, overview, poster_path, backdrop_path} = data
 
     return (
-        <div className='h-screen relative '>
+        <div className='h-screen w-screen relative '>
                     <Image 
-                        className="object-cover w-full h-screen"
                         src={`${IMAGES_URL}${backdrop_path}`} 
                         alt="Movie backdrop image"
-                        fill={true}
+                        fill
+                        objectFit="cover"
                     />
                  
                     <div className="absolute inset-0 bg-gradient-to-tr from-transparent to-black">
@@ -35,13 +35,12 @@ export default function PopularMoviesCard ({data}: PopularMoviesCardProps) {
                             </Link>
                         </div>
                         <div className='md:w-1/2 hidden md:flex justify-center items-center '>
-                            <div className="w-4/6 xl:w-2/5 h-full relative">
+                            <div className="md:w-[64%] lg:w-[50%] xl:w-[42%] h-full relative">
                                 <Image 
                                     src={`${IMAGES_URL}${poster_path}`}  
                                     alt="Movie poster image"
                                     className='rounded-lg shadow-md '
-                                    objectFit='cover'
-                                    fill={true}
+                                    fill
                                 />
                             </div>
                         </div>
