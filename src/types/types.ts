@@ -21,3 +21,8 @@ export type Movie = {
     };
 }
 
+export type Video = {
+    id: number;
+    key: string;
+    name: string;
+}
