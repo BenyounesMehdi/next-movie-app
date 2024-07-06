@@ -1,5 +1,4 @@
 import { IMAGES_URL } from "@/api/apiConfig"
-import { Movie } from "@/types/types"
 import Image from "next/image"
 
 type CategoryCardProps = {
