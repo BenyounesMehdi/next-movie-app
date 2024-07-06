@@ -1,4 +1,4 @@
-import { Movie } from "@/types/types";
+import { Movie, Tv } from "@/types/types";
 import ErrorCard from "../shared/ErrorCard";
 import CategoryCarousel from "./CategoryCarousel";
 
@@ -8,11 +8,11 @@ type CategoryCardProps = {
 
 const getCategoryMedia = async (url: string) => {
     const res = await fetch(url
-        // ,{
-        //     next: {
-        //         revalidate: 86400 // 24 hours 
-        //     }
-        //  }
+        ,{
+            next: {
+                revalidate: 86400 // 24 hours 
+            }
+         }
     );
     if (!res.ok) {
         throw new Error('Failed to fetch popular movies');
@@ -22,13 +22,12 @@ const getCategoryMedia = async (url: string) => {
 
 export default async function Categories ({ url }: CategoryCardProps ) {
 
-    let MediaCategory: Movie[] = []
+    let MediaCategory: Movie[] | Tv[] = [];
     let error: string | null = null
 
     try {
         const data = await getCategoryMedia(url)
-        MediaCategory = data.results as Movie[] 
-        // console.log("media Cetegory: ",MediaCategory)
+        MediaCategory = url.includes("tv") ? (data.results as Tv[]) : (data.results as Movie[]);
     }catch (e) {
         if (e instanceof Error) {
              error = e.message
@@ -40,7 +39,7 @@ export default async function Categories ({ url }: CategoryCardProps ) {
     return (
         
         <div>
-            <CategoryCarousel data={MediaCategory}  />
+            <CategoryCarousel data={MediaCategory} url={url} />
         </div>
     )
 }

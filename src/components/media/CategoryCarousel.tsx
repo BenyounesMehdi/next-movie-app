@@ -3,14 +3,15 @@
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import "@splidejs/splide/dist/css/splide.min.css";
 import CategoryCard from './CategoryCard'
-import { Movie } from '@/types/types';
+import { Movie, Tv } from '@/types/types';
 import Link from 'next/link';
 
 type RowCarouselProps = {
-    data: Movie[];
+    data: Movie[] | Tv[];
+    url: string
 };
 
-export default function CategoryCarousel({ data }: RowCarouselProps) {
+export default function CategoryCarousel({ data, url }: RowCarouselProps) {
 
     return (
         <div>
@@ -33,10 +34,13 @@ export default function CategoryCarousel({ data }: RowCarouselProps) {
                     type: "loop"
                 }}
             >
-                {data.map((movie) => (
-                    <SplideSlide key={movie.id}>
-                        <Link href={`/movie/${movie.id}`}>
-                            <CategoryCard image={movie.poster_path} title={movie.title} />
+                {data.map((media: Movie | Tv) => (
+                    <SplideSlide key={media.id}>
+                        <Link href={url.includes("tv") ? `/tv/${media.id}` : `/movie/${media.id}`}>
+                            <CategoryCard 
+                                image={media.poster_path} 
+                                title={url.includes("tv") ? media.original_name : media.title}
+                            />
                         </Link>
                     </SplideSlide>
                 ))}
