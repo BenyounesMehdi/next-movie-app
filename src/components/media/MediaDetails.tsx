@@ -92,8 +92,8 @@ export default async function MediaDetails({mediaId}: MediaDetailsProps) {
                     </div>
                 </div>
             </div>
-            <div className="py-80">
-                <Suspense fallback={<div className="relative top-11"><LoadingSpinner /></div>}>          
+            <div className="pt-80">
+                <Suspense fallback={<div className="relative top-72 "><LoadingSpinner /></div>}>          
                         <MediaVideos mediaId={media.id}  />
                 </Suspense>
             </div>
