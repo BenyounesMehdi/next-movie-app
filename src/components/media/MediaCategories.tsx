@@ -10,9 +10,9 @@ export default function MediaCategories () {
 
     const categories: Categorie[] = [
         {title: "Trending movies", url: `${BASE_URL}/trending/movie/week?api_key=${API_KEY}`},
-        // {title: "Top rated movies", url: `${BASE_URL}/movie/top_rated?api_key=${API_KEY}`},
-        // {title: "Trending TV", url: `${BASE_URL}/trending/tv/week?api_key=${API_KEY}`},
-        // {title: "Top rated TV", url: `${BASE_URL}/tv/top_rated?api_key=${API_KEY}`},
+        {title: "Top rated movies", url: `${BASE_URL}/movie/top_rated?api_key=${API_KEY}`},
+        {title: "Trending TV", url: `${BASE_URL}/trending/tv/week?api_key=${API_KEY}`},
+        {title: "Top rated TV", url: `${BASE_URL}/tv/top_rated?api_key=${API_KEY}`}
     ]
 
     return (
