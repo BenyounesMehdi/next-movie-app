@@ -9,6 +9,7 @@ import LoadingSpinner from "../shared/LoadingSpinner";
 
 type MediaDetailsProps = {
     mediaId: string;
+    type: string
 }
 
 const getMedia = async (url: string) => {
@@ -25,15 +26,17 @@ const getMedia = async (url: string) => {
     return res.json();
 }
 
-export default async function MediaDetails({mediaId}: MediaDetailsProps) {
+export default async function MediaDetails({mediaId, type}: MediaDetailsProps) {
 
-    const movieUrl = `${BASE_URL}/movie/${mediaId}?api_key=${API_KEY}&append_to_response=credits`
+    const mediaUrl = type === "movie" 
+                                ? `${BASE_URL}/movie/${mediaId}?api_key=${API_KEY}&append_to_response=credits`
+                                : `${BASE_URL}/tv/${mediaId}?api_key=${API_KEY}&append_to_response=credits`
 
     let media: Movie[] = []
     let error: string | null = null
 
     try {
-        const data = await getMedia(movieUrl)
+        const data = await getMedia(mediaUrl)
          media = data as Movie[] 
     }catch (e) {
         if (e instanceof Error) {
@@ -85,7 +88,7 @@ export default async function MediaDetails({mediaId}: MediaDetailsProps) {
                             numberOfSeasons={media.number_of_seasons}
                             numberOfEpisodes={media.number_of_episodes} 
                             overview={media.overview}
-                            releaseDate={media.release_date}
+                            releaseDate={type === "movie" ? media.release_date : media.first_air_date}
                             credits={media.credits}
                         />
 
@@ -94,7 +97,7 @@ export default async function MediaDetails({mediaId}: MediaDetailsProps) {
             </div>
             <div className="pt-80">
                 <Suspense fallback={<div className="relative top-72 "><LoadingSpinner /></div>}>          
-                        <MediaVideos mediaId={media.id}  />
+                        <MediaVideos mediaId={media.id} type={type} />
                 </Suspense>
             </div>
         </div>

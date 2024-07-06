@@ -4,6 +4,7 @@ import { Movie, Video } from "@/types/types";
 
 type MediaVideosProps = {
     mediaId: string;
+    type: string
 }
 
 const getMediaVideos = async (url: string) => {
@@ -20,10 +21,11 @@ const getMediaVideos = async (url: string) => {
     return res.json();
 }
 
-export default async function MediaVideos ({mediaId}: MediaVideosProps) {
+export default async function MediaVideos ({mediaId, type}: MediaVideosProps) {
 
-    // const videosUrl = `${BASE_URL}/${mediaType}/${mediaId}/videos?api_key=${API_KEY}`;
-    const videosUrl = `${BASE_URL}/movie/${mediaId}/videos?api_key=${API_KEY}`;
+    const videosUrl = type === "movie"
+                     ? `${BASE_URL}/movie/${mediaId}/videos?api_key=${API_KEY}`
+                     : `${BASE_URL}/tv/${mediaId}/videos?api_key=${API_KEY}`
 
     let videos: Video[] = []
     let error: string | null = null
