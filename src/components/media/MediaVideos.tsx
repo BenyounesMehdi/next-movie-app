@@ -8,11 +8,11 @@ type MediaVideosProps = {
 
 const getMediaVideos = async (url: string) => {
     const res = await fetch(url
-        // ,{
-        //     next: {
-        //         revalidate: 86400 // 24 hours 
-        //     }
-        // }
+        ,{
+            next: {
+                revalidate: 86400 // 24 hours 
+            }
+        }
     );
     if (!res.ok) {
         throw new Error('Failed to fetch');
@@ -30,7 +30,7 @@ export default async function MediaVideos ({mediaId}: MediaVideosProps) {
 
     try {
         const data = await getMediaVideos(videosUrl)
-        videos = data.results as Video[] 
+        videos = data.results.filter((video: Video) => video.name.toLowerCase().includes("trailer")); 
     }catch (e) {
         if (e instanceof Error) {
              error = e.message
@@ -40,7 +40,7 @@ export default async function MediaVideos ({mediaId}: MediaVideosProps) {
     if(error) return <div className="relative top-11"><ErrorCard /></div>
 
     return (
-        <div className="py-96 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-center items-center gap-1 container mx-auto">
+        <div className="pt-96 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-center items-center gap-1 container mx-auto">
             {videos.map((video: Video) => (
                 <div key={video.id} className="w-full h-[350px] md:h-[300px] px-1">
                         <iframe
