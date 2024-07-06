@@ -10,11 +10,11 @@ type MoviePageProps = {
 
 export default function MoviePage ({params}: MoviePageProps) {
 
-
+        const type = "movie"
     return (
         <div>
             <Suspense fallback={<div className="relative top-11"><LoadingSpinner /></div>}>
-                <MediaDetails mediaId={params.movieId} />
+                <MediaDetails mediaId={params.movieId} type={type} />
             </Suspense>
         </div>
     )
