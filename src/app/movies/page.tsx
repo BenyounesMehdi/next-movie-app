@@ -29,7 +29,7 @@ export default async function MoviesPage () {
 
     try {
         const data = await getMoviesGenres(moviesGenresUrl)
-        moviesGenres = data as Genre[] 
+        moviesGenres = data.genres as Genre[] 
         console.log("movies genres: ",moviesGenres)
     }catch (e) {
         if (e instanceof Error) {
