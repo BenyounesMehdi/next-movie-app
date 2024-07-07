@@ -46,3 +46,8 @@ export type Video = {
     key: string;
     name: string;
 }
+
+export type Genre = {
+    id: number;
+    name: string
+}
