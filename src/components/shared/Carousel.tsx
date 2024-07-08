@@ -20,7 +20,7 @@ export default function Carousel ({data}: CarouselProps) {
                         drag: "free",
                         gap: "1rem",
                         type: "loop",
-                        autoplay: true,
+                        // autoplay: true,
                         interval: 1000
                     }}
                 >

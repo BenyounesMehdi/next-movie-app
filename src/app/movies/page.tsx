@@ -38,7 +38,6 @@ export default function MoviesPage () {
         setSelectedMovieGenre(genre)
     }
 
-    console.log("set movie genre: ", selectedMovieGenre)
 
     if(error) return <div className="relative top-11"><ErrorCard /></div>
 

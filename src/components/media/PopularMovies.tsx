@@ -5,6 +5,7 @@ import Carousel from "../shared/Carousel";
 
 
 const getPopularMovies = async () => {
+    
     const res = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`,{
         next: {
             revalidate: 86400 // 24 hours 
@@ -24,6 +25,7 @@ export default async function PopularMovies () {
     try {
         const data = await getPopularMovies()
          popularMovies = data.results as Movie[] 
+         console.log("popular movies: ", popularMovies)
     }catch (e) {
         if (e instanceof Error) {
              error = e.message
