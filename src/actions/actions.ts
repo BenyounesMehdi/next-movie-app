@@ -11,6 +11,7 @@ export const getMoviesGenres = async () => {
          }
     );
     if (!res.ok) {
+        console.log("error from actions: ")
         throw new Error('Failed to fetch');
     }
     return res.json();
