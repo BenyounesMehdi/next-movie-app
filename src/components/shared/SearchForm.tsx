@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { RiCloseLargeLine } from "react-icons/ri"
 
@@ -11,10 +12,10 @@ export default function SearchForm ({placeHolder}: SearchFormProps) {
     
     const [showDeleteButton, setShowDeleteButton] = useState<boolean>(false)
     const [inputValue, setInputValue] = useState<string>("")
+    const router = useRouter()
 
     const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value)
-        
 
         if(e.target.value.trim().length > 0) setShowDeleteButton(true)
         else setShowDeleteButton(false)
@@ -27,7 +28,7 @@ export default function SearchForm ({placeHolder}: SearchFormProps) {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        // getQuery(inputValue)
+        router.push(`/movie/search/${inputValue}`)
     }
 
     return (

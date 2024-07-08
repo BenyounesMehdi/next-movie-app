@@ -43,7 +43,6 @@ export default function MoviesPage () {
 
     return (
         <div className="relative top-20 container mx-auto">
-            {selectedMovieGenre}
             <div className="flex flex-col md:flex-row justify-center items-center ">
                 <div className="w-full md:w-3/4 px-2 md:px-1">
                     <SearchForm placeHolder="Search a movie" />
