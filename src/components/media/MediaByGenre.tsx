@@ -20,8 +20,6 @@ export default function MediaByGenre({ type, genre }: MediaByGenreProps) {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
-    console.log("genre from the component: ", genre)
-
     const loadMoreData = async () => {
         console.log("genre: ",genre)
         setIsLoading(true);
