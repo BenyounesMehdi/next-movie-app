@@ -17,7 +17,7 @@ export default function Carousel ({data}: CarouselProps) {
                         perPage: 1, 
                         arrows: true,
                         pagination: false,
-                        drag: "free",
+                        // drag: "free",
                         gap: "1rem",
                         type: "loop",
                         autoplay: true,
