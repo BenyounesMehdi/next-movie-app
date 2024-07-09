@@ -11,18 +11,17 @@ type GenresSectionProps = {
 
 export default function GenresSection({ genres, setMovieGenre }: GenresSectionProps) {
 
-    const [genre, setGenre] = useState<string>(String(genres[0].id));
-    setMovieGenre(genre)
+    const [genre, setGenre] = useState<string>("");
 
     useEffect(() => {
         if (genres) {
             const savedGenre = localStorage.getItem("selectedMovieGenre");
             if (savedGenre) {
                 setGenre(savedGenre);
-                setMovieGenre(genre)
+                setMovieGenre(savedGenre)
             } else {
                 setGenre(String(genres[0].id));
-                setMovieGenre(genre)
+                setMovieGenre(String(genres[0].id))
                 localStorage.setItem("selectedMovieGenre", String(genres[0].id));
             }
         }   

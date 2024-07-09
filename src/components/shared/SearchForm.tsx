@@ -28,7 +28,7 @@ export default function SearchForm ({placeHolder}: SearchFormProps) {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        router.push(`/movie/search/${inputValue}`)
+        if(inputValue.trim().length > 0) router.push(`/movie/search/${inputValue}`)
     }
 
     return (

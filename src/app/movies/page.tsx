@@ -1,22 +1,18 @@
 'use client'
 
 import { getMoviesGenres } from "@/actions/actions";
-import { BASE_URL, API_KEY } from "@/api/apiConfig";
+import MediaByGenre from "@/components/media/MediaByGenre";
 import ErrorCard from "@/components/shared/ErrorCard";
 import GenresSection from "@/components/shared/GenresSection";
 import SearchForm from "@/components/shared/SearchForm";
 import { Genre } from "@/types/types";
 import { useEffect, useState } from "react";
 
-
-
-
 export default function MoviesPage () {
 
     const [moviesGenres, setMoviesGenres] = useState<Genre[]>([])
     const [error, setError] = useState<string | null>(null);
     const [selectedMovieGenre, setSelectedMovieGenre] = useState<string>("")
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -38,7 +34,6 @@ export default function MoviesPage () {
         setSelectedMovieGenre(genre)
     }
 
-
     if(error) return <div className="relative top-11"><ErrorCard /></div>
 
     return (
@@ -49,7 +44,10 @@ export default function MoviesPage () {
                 </div>
                 {moviesGenres.length > 0 && <GenresSection setMovieGenre={setMovieGenre} genres={moviesGenres} />} 
             </div>
-
+            
+            <div>
+                <MediaByGenre type="movie" genre={selectedMovieGenre}/>
+            </div>
         </div>  
     )
 }

@@ -13,11 +13,11 @@ type SearchedMediaProps = {
 const getMediaSearch = async (url: string) => {
     
     const res = await fetch(url
-        // ,{
-        //     next: {
-        //         revalidate: 86400 // 24 hours 
-        //     }
-        // }
+        ,{
+            next: {
+                revalidate: 86400 // 24 hours 
+            }
+        }
     );
     if (!res.ok) {
         throw new Error('Failed to fetch popular movies');
@@ -35,7 +35,6 @@ export default async function SearchedMedia ({ type, query }: SearchedMediaProps
     try {
         const data = await getMediaSearch(searchMovieUrl)
         searchedMedia = data.results as Movie[] 
-        // console.log("searched media: ", searchedMedia)
     }catch (e) {
         if (e instanceof Error) {
              error = e.message

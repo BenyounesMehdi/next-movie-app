@@ -9,8 +9,6 @@ type SearchPageProps = {
 
 export default function SearchMoviePage ({params}: SearchPageProps) {
     
-   console.log("params: ",params)
-
     return (
         <div>
             {params && <SearchedMedia type="movie" query={params.slug} /> }
