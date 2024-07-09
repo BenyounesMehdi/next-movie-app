@@ -5,10 +5,11 @@ import { useState } from "react"
 import { RiCloseLargeLine } from "react-icons/ri"
 
 type SearchFormProps = {
-    placeHolder: string
+    placeHolder: string;
+    type: string
 }
 
-export default function SearchForm ({placeHolder}: SearchFormProps) {
+export default function SearchForm ({placeHolder, type}: SearchFormProps) {
     
     const [showDeleteButton, setShowDeleteButton] = useState<boolean>(false)
     const [inputValue, setInputValue] = useState<string>("")
@@ -28,7 +29,10 @@ export default function SearchForm ({placeHolder}: SearchFormProps) {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if(inputValue.trim().length > 0) router.push(`/movie/search/${inputValue}`)
+        if(inputValue.trim().length > 0) {
+            type === "movie" ? router.push(`/movie/search/${inputValue}`)
+                             : router.push(`/tv/search/${inputValue}`)
+        } 
     }
 
     return (
