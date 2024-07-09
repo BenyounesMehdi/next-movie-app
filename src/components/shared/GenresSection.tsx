@@ -6,31 +6,57 @@ import { useEffect, useState } from "react";
 
 type GenresSectionProps = {
     genres: Genre[]; 
-    setMovieGenre: (genre: string) => void
+    setMediaGenre: (genre: string) => void;
+    type: string
 }
 
-export default function GenresSection({ genres, setMovieGenre }: GenresSectionProps) {
+export default function GenresSection({ type, genres, setMediaGenre }: GenresSectionProps) {
 
     const [genre, setGenre] = useState<string>("");
 
     useEffect(() => {
         if (genres) {
-            const savedGenre = localStorage.getItem("selectedMovieGenre");
-            if (savedGenre) {
-                setGenre(savedGenre);
-                setMovieGenre(savedGenre)
-            } else {
-                setGenre(String(genres[0].id));
-                setMovieGenre(String(genres[0].id))
-                localStorage.setItem("selectedMovieGenre", String(genres[0].id));
+            const savedMovieGenre = localStorage.getItem("selectedMovieGenre");
+            const savedTvGenre = localStorage.getItem("selectedTvGenre");
+
+            if(type === "movie") {
+                if (savedMovieGenre) {
+                    setGenre(savedMovieGenre);
+                    setMediaGenre(savedMovieGenre)
+                } else {
+                    setGenre(String(genres[0].id));
+                    setMediaGenre(String(genres[0].id))
+                    localStorage.setItem("selectedMovieGenre", String(genres[0].id));
+                }
             }
+            else {
+                if (savedTvGenre) {
+                    setGenre(savedTvGenre);
+                    setMediaGenre(savedTvGenre)
+                } else {
+                    setGenre(String(genres[0].id));
+                    setMediaGenre(String(genres[0].id))
+                    localStorage.setItem("selectedTvGenre", String(genres[0].id));
+                }
+            }
+            
         }   
     }, [genres]);
 
     const handleGenreChange = (genre: string) => {
-        setGenre(genre);
-        setMovieGenre(genre)
-        localStorage.setItem("selectedMovieGenre", genre);
+        
+        // setGenre(genre);
+        // setMediaGenre(genre)
+        if(type === "movie") {
+            localStorage.setItem("selectedMovieGenre", genre);
+            setGenre(genre);
+            setMediaGenre(genre)
+        }
+        else {
+            localStorage.setItem("selectedTvGenre", genre);
+            setGenre(genre)
+            setMediaGenre(genre)
+        }
     };
 
     return (

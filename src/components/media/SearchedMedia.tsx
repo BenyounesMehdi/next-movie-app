@@ -1,12 +1,12 @@
 import { BASE_URL, API_KEY } from "@/api/apiConfig";
 import ErrorCard from "../shared/ErrorCard";
-import { Movie } from "@/types/types";
+import { Movie, Tv } from "@/types/types";
 import CategoryCard from "./CategoryCard";
 import Link from "next/link";
 import NoDataFound from "../shared/NoDataFound";
 
 type SearchedMediaProps = {
-    type: string;
+    type: "movie" | "tv";
     query: string
 }
 
@@ -27,14 +27,16 @@ const getMediaSearch = async (url: string) => {
 
 export default async function SearchedMedia ({ type, query }: SearchedMediaProps) {
 
-    let searchedMedia: Movie[] = []
+    let searchedMedia: Array<Movie | Tv> = [];
     let error: string | null = null
     
-    const searchMovieUrl = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}` 
+    const searchMovieUrl = type === "movie" 
+                            ?`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}` 
+                            :`${BASE_URL}/search/tv?api_key=${API_KEY}&query=${query}` 
 
     try {
         const data = await getMediaSearch(searchMovieUrl)
-        searchedMedia = data.results as Movie[] 
+        searchedMedia = data.results as Array<Movie | Tv>;
     }catch (e) {
         if (e instanceof Error) {
              error = e.message
@@ -48,12 +50,11 @@ export default async function SearchedMedia ({ type, query }: SearchedMediaProps
         <div className="container mx-auto relative pt-32 pb-10 px-2">
                 {searchedMedia.length > 0 ?
                     <div className="grid gap-1 grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7">
-                        {searchedMedia.map((media: Movie) => {
-                            return <Link href={`/movie/${media.id}`} key={media.id}>
-                                <CategoryCard image={media.poster_path} title={media.title} />
+                        {searchedMedia.map(media => (
+                            <Link href={type === "movie" ? `/movie/${media.id}` : `/tv/${media.id}`} key={media.id}>
+                                <CategoryCard image={media.poster_path} title={"title" in media ? media.title : media.original_name} />
                             </Link>
-                        })
-                        }
+                        ))}
                     </div>
                     : <div className="">
                         <NoDataFound />
