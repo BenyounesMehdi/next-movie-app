@@ -1,6 +1,6 @@
 'use client'
 
-import { getMoviesGenres } from "@/actions/actions";
+import { getMediasGenres } from "@/actions/actions";
 import MediaByGenre from "@/components/media/MediaByGenre";
 import ErrorCard from "@/components/shared/ErrorCard";
 import GenresSection from "@/components/shared/GenresSection";
@@ -17,7 +17,7 @@ export default function MoviesPage () {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await getMoviesGenres()
+                const data = await getMediasGenres("movie")
                 setMoviesGenres(data.genres)
             }catch (e) {
                 if (e instanceof Error) {
@@ -40,11 +40,11 @@ export default function MoviesPage () {
         <div className="relative top-20 container mx-auto">
             <div className="flex flex-col md:flex-row justify-center items-center ">
                 <div className="w-full md:w-3/4 px-2 md:px-1">
-                    <SearchForm placeHolder="Search a movie" />
+                    <SearchForm type="movie" placeHolder="Search a movie" />
                 </div>
-                {moviesGenres.length > 0 && <GenresSection setMovieGenre={setMovieGenre} genres={moviesGenres} />} 
+                {moviesGenres.length > 0 && <GenresSection type="movie" setMediaGenre={setMovieGenre} genres={moviesGenres} />} 
             </div>
-            
+
             <div>
                 <MediaByGenre type="movie" genre={selectedMovieGenre}/>
             </div>
