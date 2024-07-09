@@ -2,8 +2,12 @@
 
 import { BASE_URL,API_KEY } from "@/api/apiConfig";
 
-export const getMoviesGenres = async () => {
-    const res = await fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}`
+export const getMediasGenres = async (type: string) => {
+    const tempUrl = type === "movie" 
+                    ? `${BASE_URL}/genre/movie/list?api_key=${API_KEY}`
+                    : `${BASE_URL}/genre/tv/list?api_key=${API_KEY}`
+
+    const res = await fetch(tempUrl
         ,{
              next: {
                  revalidate: 86400 // 24 hours 
@@ -16,10 +20,13 @@ export const getMoviesGenres = async () => {
     return res.json();
 }
 
-export const fetchData = async (genre: string, page: number, limit: number) => {
+export const fetchData = async (type: string, genre: string, page: number, limit: number) => {
 
-    const moviesByGenreUrl = `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genre}`;
-    const paginatedUrl = `${moviesByGenreUrl}&page=${page}&limit=${limit}`;
+    const mediaByGenreUrl = type === "movie"
+                            ? `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genre}`
+                            : `${BASE_URL}/discover/tv?api_key=${API_KEY}&with_genres=${genre}`
+                            
+    const paginatedUrl = `${mediaByGenreUrl}&page=${page}&limit=${limit}`;
 
     const res = await fetch(paginatedUrl);
     if (!res.ok) {
