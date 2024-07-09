@@ -7,6 +7,7 @@ import Link from "next/link";
 import CategoryCard from "./CategoryCard";
 import { useEffect, useState } from "react";
 import { fetchData } from "@/actions/actions";
+import { cp } from "fs";
 
 type MediaByGenreProps = {
     type: "movie" | "tv";
@@ -19,12 +20,16 @@ export default function MediaByGenre({ type, genre }: MediaByGenreProps) {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
+    console.log("genre from the component: ", genre)
+
     const loadMoreData = async () => {
+        console.log("genre: ",genre)
         setIsLoading(true);
         try {
             const data = await fetchData(type, genre, page + 1, 20);
             setMediaByGenre(oldData => [...oldData, ...data.results]);
             setPage(page + 1);
+            console.log("data: ",data)
         } catch (e) {
             if (e instanceof Error) {
                 setError(e.message);
@@ -57,7 +62,7 @@ export default function MediaByGenre({ type, genre }: MediaByGenreProps) {
     useEffect(() => {
         window.addEventListener('scroll', onScroll);
         return () => window.removeEventListener('scroll', onScroll);
-    }, [page, isLoading]);
+    }, [page, isLoading, genre]);
 
     if (error) return <div className="pt-11"><ErrorCard /></div>;
 
