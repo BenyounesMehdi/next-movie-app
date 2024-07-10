@@ -7,6 +7,7 @@ type SearchPageProps = {
     }
 }
 
+
 export default function SearchMoviePage ({params}: SearchPageProps) {
     
     return (

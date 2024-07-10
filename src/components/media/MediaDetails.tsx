@@ -1,7 +1,7 @@
 import { BASE_URL, API_KEY, IMAGES_URL } from "@/api/apiConfig"
 import ErrorCard from "../shared/ErrorCard";
 import Image from "next/image"
-import { Movie } from "@/types/types";
+import { Movie, Tv } from "@/types/types";
 import MediaOverview from "./MediaOverview";
 import MediaVideos from "./MediaVideos";
 import { Suspense } from "react";
@@ -32,7 +32,7 @@ export default async function MediaDetails({mediaId, type}: MediaDetailsProps) {
                                 ? `${BASE_URL}/movie/${mediaId}?api_key=${API_KEY}&append_to_response=credits`
                                 : `${BASE_URL}/tv/${mediaId}?api_key=${API_KEY}&append_to_response=credits`
 
-    let media: Movie[] = []
+    let media: Movie[] | Tv[] = []
     let error: string | null = null
 
     try {

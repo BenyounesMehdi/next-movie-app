@@ -25,7 +25,6 @@ export default async function PopularMovies () {
     try {
         const data = await getPopularMovies()
          popularMovies = data.results as Movie[] 
-         console.log("popular movies: ", popularMovies)
     }catch (e) {
         if (e instanceof Error) {
              error = e.message
