@@ -1,4 +1,4 @@
-import { getMediaTitle } from "@/app/movie/[movieId]/page"
+import { getMediaTitle } from "@/actions/actions"
 import MediaDetails from "@/components/media/MediaDetails"
 import LoadingSpinner from "@/components/shared/LoadingSpinner"
 import { Suspense } from "react"
