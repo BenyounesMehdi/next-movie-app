@@ -36,3 +36,16 @@ export const fetchData = async (type: string, genre: string, page: number, limit
     return res.json();
 };
 
+export const getMediaTitle = async (mediaId: string, type: string) => {
+    const mediaUrl = type === "movie"
+        ? `${BASE_URL}/movie/${mediaId}?api_key=${API_KEY}`
+        : `${BASE_URL}/tv/${mediaId}?api_key=${API_KEY}`;
+    
+    const res = await fetch(mediaUrl);
+    if (!res.ok) {
+        throw new Error('Failed to fetch');
+    }
+    const data = await res.json();
+    return data.title || data.original_name;
+};
+
