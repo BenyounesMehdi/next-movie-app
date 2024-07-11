@@ -40,6 +40,7 @@ export default function MediaDetails({mediaId, type}: MediaDetailsProps) {
     if (!media) return <div className="relative top-11"><LoadingSpinner /></div>;
 
     return (
+        <>
         <div className="h-screen relative">
         <Image
             src={`${IMAGES_URL}${media.backdrop_path}`}
@@ -87,11 +88,13 @@ export default function MediaDetails({mediaId, type}: MediaDetailsProps) {
                 </div>
             </div>
         </div>
-        <div className="pt-[350px]">
-            <Suspense fallback={<div className="relative top-72 "><LoadingSpinner /></div>}>
-                <MediaVideos mediaId={String(media.id)} type={type} />
-            </Suspense>
-        </div>
+        
     </div>
+    <div className="">
+    <Suspense fallback={<div className="relative "><LoadingSpinner /></div>}>
+        <MediaVideos mediaId={String(media.id)} type={type} />
+    </Suspense>
+</div>
+</>
     )
 }

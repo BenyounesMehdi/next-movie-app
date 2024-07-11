@@ -33,7 +33,7 @@ export default function MediaVideos ({mediaId, type}: MediaVideosProps) {
     if(error) return <div className="relative top-11"><ErrorCard /></div>
 
     return (
-        <div className="pt-96 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-center items-center gap-1 container mx-auto">
+        <div className="py-12 px-2 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-center items-center gap-1 container mx-auto">
             {videos.map((video: Video) => (
                 <div key={video.id} className="w-full h-[350px] md:h-[300px] px-1">
                         <iframe
