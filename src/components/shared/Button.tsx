@@ -1,7 +1,7 @@
 
 type ButtonProps = {
     title: string;
-    onClick: () => void
+    onClick?: () => void
 }
 
 export default function Button ({title,  onClick}: ButtonProps) {
