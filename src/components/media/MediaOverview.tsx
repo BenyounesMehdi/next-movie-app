@@ -5,20 +5,22 @@ import Image from "next/image"
 import { IMAGES_URL } from "@/api/apiConfig";
 
 type MediaOverviewProps = {
-    numberOfSeasons: number;
-    numberOfEpisodes: number;
+    numberOfSeasons?: number;
+    numberOfEpisodes?: number;
     overview: string;
     releaseDate: string;
     credits: {
         cast: {
             id: string;
             profile_path: string
-        }[];
-    }
+        }[] ;
+    }| undefined,
+    type: string
 }
 
-export default function MediaOverview ({numberOfSeasons, numberOfEpisodes, overview, releaseDate, credits}: MediaOverviewProps) {
+export default function MediaOverview ({numberOfSeasons, numberOfEpisodes, overview, releaseDate, credits, type}: MediaOverviewProps) {
 
+    console.log("number of seasons: ", numberOfSeasons)
     const top3Cast = credits?.cast.slice(0, 3);
    
     const [showFullOverview, setShowFullOverview] = useState<boolean>(false);
@@ -49,7 +51,7 @@ export default function MediaOverview ({numberOfSeasons, numberOfEpisodes, overv
                 {releaseDate}
             </p>
 
-            {numberOfEpisodes && numberOfSeasons && !showFullOverview && (
+            {type === "tv" && numberOfEpisodes && numberOfSeasons && !showFullOverview &&  (
                             <>
                                 <p className="text-xl font-semibold pb-2 ">
                                     <span className="text-red-500">Number of seasons: </span>

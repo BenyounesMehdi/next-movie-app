@@ -39,7 +39,8 @@ export default function CategoryCarousel({ data, url }: RowCarouselProps) {
                         <Link href={url.includes("tv") ? `/tv/${media.id}` : `/movie/${media.id}`}>
                             <CategoryCard 
                                 image={media.poster_path} 
-                                title={url.includes("tv") ? media.original_name : media.title}
+                                // title={url.includes("tv") ? media.original_name : media.title}
+                                title={"title" in media ? media.title : media.original_name}
                             />
                         </Link>
                     </SplideSlide>
