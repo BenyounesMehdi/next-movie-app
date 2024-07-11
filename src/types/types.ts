@@ -7,19 +7,20 @@ export type Movie = {
     id: number;
     title: string;
     overview: string;
-    release_date?: string;
+    release_date: string;
     poster_path: string;
     backdrop_path: string;
     genres?: {
         name: string
     }[];
-    credits?: {
+    credits: {
         cast: {
             id: number;
             profile_path: string
         }[];
     };
 }
+
 
 export type Tv = {
     id: number;
