@@ -1,43 +1,46 @@
 import { BASE_URL, API_KEY } from "@/api/apiConfig";
 import ErrorCard from "../shared/ErrorCard";
 import { Movie, Video } from "@/types/types";
+import { getMediaVideos } from "@/actions/actions";
+import { useEffect, useState } from "react";
 
 type MediaVideosProps = {
     mediaId: string;
     type: string
 }
 
-const getMediaVideos = async (url: string) => {
-    const res = await fetch(url
-        ,{
-            next: {
-                revalidate: 86400 // 24 hours 
+// const getMediaVideos = async (url: string) => {
+//     const res = await fetch(url
+//         ,{
+//             next: {
+//                 revalidate: 86400 // 24 hours 
+//             }
+//         }
+//     );
+//     if (!res.ok) {
+//         throw new Error('Failed to fetch');
+//     }
+//     return res.json();
+// }
+
+export default function MediaVideos ({mediaId, type}: MediaVideosProps) {
+
+    const [videos, setVideos] = useState<Video[]>([])
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetch = async () => {
+            try {
+                const data = await getMediaVideos(type, mediaId)
+                setVideos(data.results.filter((video: Video) => video.name.toLowerCase().includes("trailer"))); 
+            }catch (e) {
+                if (e instanceof Error) {
+                     setError(e.message)
+                } 
             }
         }
-    );
-    if (!res.ok) {
-        throw new Error('Failed to fetch');
-    }
-    return res.json();
-}
-
-export default async function MediaVideos ({mediaId, type}: MediaVideosProps) {
-
-    const videosUrl = type === "movie"
-                     ? `${BASE_URL}/movie/${mediaId}/videos?api_key=${API_KEY}`
-                     : `${BASE_URL}/tv/${mediaId}/videos?api_key=${API_KEY}`
-
-    let videos: Video[] = []
-    let error: string | null = null
-
-    try {
-        const data = await getMediaVideos(videosUrl)
-        videos = data.results.filter((video: Video) => video.name.toLowerCase().includes("trailer")); 
-    }catch (e) {
-        if (e instanceof Error) {
-             error = e.message
-        } 
-    }
+        fetch()
+    }, [mediaId, type])
 
     if(error) return <div className="relative top-11"><ErrorCard /></div>
 
