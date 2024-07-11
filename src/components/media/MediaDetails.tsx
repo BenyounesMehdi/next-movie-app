@@ -87,7 +87,7 @@ export default function MediaDetails({mediaId, type}: MediaDetailsProps) {
                 </div>
             </div>
         </div>
-        <div className="pt-80">
+        <div className="pt-[350px]">
             <Suspense fallback={<div className="relative top-72 "><LoadingSpinner /></div>}>
                 <MediaVideos mediaId={String(media.id)} type={type} />
             </Suspense>
