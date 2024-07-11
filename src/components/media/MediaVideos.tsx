@@ -1,6 +1,7 @@
-import { BASE_URL, API_KEY } from "@/api/apiConfig";
+'use client'
+
 import ErrorCard from "../shared/ErrorCard";
-import { Movie, Video } from "@/types/types";
+import { Video } from "@/types/types";
 import { getMediaVideos } from "@/actions/actions";
 import { useEffect, useState } from "react";
 
@@ -9,19 +10,6 @@ type MediaVideosProps = {
     type: string
 }
 
-// const getMediaVideos = async (url: string) => {
-//     const res = await fetch(url
-//         ,{
-//             next: {
-//                 revalidate: 86400 // 24 hours 
-//             }
-//         }
-//     );
-//     if (!res.ok) {
-//         throw new Error('Failed to fetch');
-//     }
-//     return res.json();
-// }
 
 export default function MediaVideos ({mediaId, type}: MediaVideosProps) {
 
