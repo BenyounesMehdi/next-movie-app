@@ -3,25 +3,20 @@
 import { useState } from "react";
 import Image from "next/image"
 import { IMAGES_URL } from "@/api/apiConfig";
+import { Credits } from "@/types/types";
 
 type MediaOverviewProps = {
     numberOfSeasons?: number;
     numberOfEpisodes?: number;
     overview: string;
     releaseDate: string;
-    credits: {
-        cast: {
-            id: string;
-            profile_path: string
-        }[] ;
-    }| undefined,
+    credits: Credits,
     type: string
 }
 
 export default function MediaOverview ({numberOfSeasons, numberOfEpisodes, overview, releaseDate, credits, type}: MediaOverviewProps) {
 
-    console.log("number of seasons: ", numberOfSeasons)
-    const top3Cast = credits?.cast.slice(0, 3);
+    const top3Cast = credits.cast.slice(0, 3)
    
     const [showFullOverview, setShowFullOverview] = useState<boolean>(false);
 

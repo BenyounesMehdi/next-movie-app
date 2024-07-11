@@ -3,6 +3,15 @@ export type NavLink = {
     path: string;
 }
 
+export type CastMember = {
+    id: number;
+    profile_path: string;
+  };
+  
+  export type Credits = {
+    cast: CastMember[];
+  };
+
 export type Movie = {
     id: number;
     title: string;
@@ -13,12 +22,7 @@ export type Movie = {
     genres?: {
         name: string
     }[];
-    credits: {
-        cast: {
-            id: number;
-            profile_path: string
-        }[];
-    };
+    credits: Credits;
 }
 
 
@@ -32,12 +36,7 @@ export type Tv = {
     genres: {
         name: string
     }[];
-    credits: {
-        cast: {
-            id: number;
-            profile_path: string
-        }[];
-    };
+    credits: Credits;
     number_of_episodes: number;
     number_of_seasons: number;
 };

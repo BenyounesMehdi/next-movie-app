@@ -20,16 +20,11 @@ export default function MediaDetails({mediaId, type}: MediaDetailsProps) {
     const [media, setMedia] = useState<Movie | Tv | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    // const numberOfSeasons: number = type === 'tv' ? (media as Tv).number_of_seasons : 0; 
-    // const numberOfEpisodes: number = type === 'tv' ? (media as Tv).number_of_episodes : 0;
-    // const [credits, setCredits] = useState<{ cast: { id: string; profile_path: string }[] } | undefined>(undefined);
-
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const data = await getMedia(mediaId, type);
                 setMedia(data);
-                console.log("media: ", data)
             } catch (e) {
                 if (e instanceof Error) {
                     setError(e.message);
@@ -43,7 +38,6 @@ export default function MediaDetails({mediaId, type}: MediaDetailsProps) {
     if(error) return <div className="relative top-11"><ErrorCard /></div>
     
     if (!media) return <div className="relative top-11"><LoadingSpinner /></div>;
-    // const title = type === 'movie' ? (media as Movie).title : (media as Tv).original_name;
 
     return (
         <div className="h-screen relative">

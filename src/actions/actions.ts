@@ -50,7 +50,6 @@ export const fetchData = async (type: string, genre: string, page: number, limit
 
     const res = await fetch(paginatedUrl);
     if (!res.ok) {
-        console.error(`Failed to fetch data: ${res.status} ${res.statusText}`);
         throw new Error('Failed to fetch data');
     }
     return res.json();
